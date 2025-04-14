@@ -15,12 +15,11 @@
                     <img src="{{ Vite::asset('resources/images/logo.svg')}}" alt="">
                 </a>
             </div>
-            <div class="space-x-6 font-bold">
+            <div class="ml-65 space-x-6 font-bold">
                 <a href="/">Home</a>
-                <a href="/brows-jobs">Browse Jobs</a>
+                <a href="/search">Browse Jobs</a>
                 <a href="/aboutus">About Us</a>
                 <a href="/contact">Contact</a>
-                    
             </div>
             @auth
                 

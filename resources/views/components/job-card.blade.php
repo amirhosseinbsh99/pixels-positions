@@ -9,7 +9,7 @@
                 {{ $job->title }}
             </a>
         </h3>
-        <p class="text-sm mt-4 group-hover:text-blue-600 transition-colors duration-300">{{ $job->salary }}</p>
+        <p class="text-sm mt-4 group-hover:text-blue-600 transition-colors duration-300">${{ $job->salary }}</p>
     </div>
 
     <div class="flex justify-between items-center mt-auto">

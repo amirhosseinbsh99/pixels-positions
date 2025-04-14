@@ -15,4 +15,5 @@
 
 @endphp
 
-<a href="/tags/{{strtolower($tag->name)}}" class="{{ $classes }}">{{ $tag->name}}</a>
+<a href="{{ url('/search') }}?tag={{ urlencode($tag->name) }}" class="{{ $classes }}">{{ $tag->name }}</a>
+

@@ -22,7 +22,7 @@ Route::get('/brows-jobs',[JobController::class,'brows']);
 
 
 
-Route::get('/search',SearchController::class);
+Route::get('/search',[SearchController::class,'search'])->name('search');
 Route::get('/tags/{tag:name}',TagController::class);
 
 Route::middleware('guest')->group(function(){
@@ -31,6 +31,8 @@ Route::post('/register',[RegisterUserController::class,'store']);
 Route::get('/login',[SessionController::class,'create']);
 Route::post('/login',[SessionController::class,'store']);
 });
-
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth');
 Route::delete('/logout',[SessionController::class,'destroy'])->middleware('auth');
 

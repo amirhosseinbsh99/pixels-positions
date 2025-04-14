@@ -67,10 +67,11 @@ class JobController extends Controller
      * Display the specified resource.
      */
     public function brows(Job $job)
-    {
+    {   
+        $job = Job::paginate(20);
         return view('brows', [
-            'job' => $job, // ✅ Passing the single job for "show" method
-            'jobs' => Job::with(['category', 'employer', 'tags'])->latest()->get(), // ✅ Fetching all jobs
+            'job' => $job, 
+            'jobs' => Job::with(['category', 'employer', 'tags'])->latest()->paginate(20), 
             'tags' => Tag::all()
         ]);
     }

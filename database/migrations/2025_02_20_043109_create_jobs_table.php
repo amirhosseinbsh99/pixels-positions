@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('title');
             $table->foreignId('category_id')
             ->constrained('categories')
-            ->onDelete('cascade'); // Use uppercase
+            ->onDelete('cascade'); 
 
-            $table->string('salary');
+            $table->integer('salary');
             $table->string('location');
             $table->string('schedule')->default('Full Time');
             $table->text('url')->nullable();

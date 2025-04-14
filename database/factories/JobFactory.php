@@ -23,7 +23,7 @@ class JobFactory extends Factory
             'employer_id' => Employer::factory(),  // Use the factory directly
             'title' => fake()->jobTitle(),
             'category_id' => Category::factory(), // Use the factory directly
-            'salary' => fake()->randomElement(['$50,000 USD','$90,000 USD','$150,000 USD']),
+            'salary' => fake()->numberBetween(50000, 150000),
             'location' => 'remote',
             'schedule' => 'Full Time',
             'featured' => false,

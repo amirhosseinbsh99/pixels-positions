@@ -10,7 +10,7 @@
                 {{$job->title}}
 
             </h3>
-            <p class="text-sm text-gray-400 mt-10">{{$job->salary}}</p>
+            <p class="text-sm text-gray-400 mt-10">${{$job->salary}}</p>
         </div>
     </div>
         <div>

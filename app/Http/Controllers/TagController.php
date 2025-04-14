@@ -9,7 +9,9 @@ class TagController extends Controller
 {
     public function __invoke(Tag $tag)
     {
-    
-        return view('resualt', ['jobs' => $tag->jobs]);
+        // Paginate the jobs related to the tag
+        $jobs = $tag->jobs()->paginate(20);
+
+        return view('resualt', ['jobs' => $jobs]);
     }
 }
