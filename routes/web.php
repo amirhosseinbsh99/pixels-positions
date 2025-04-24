@@ -6,14 +6,14 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\ProfileController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/',[JobController::class,'index']);
+Route::get('/', [JobController::class, 'index'])->name('home');
 Route::resource('categories', CategoryController::class);
 Route::view('/aboutus', 'aboutus')->name('aboutus');
 Route::view('/contact', 'contact')->name('contact');
-
 Route::get('/jobs/create',[JobController::class,'create'])->middleware('auth');
 Route::post('/jobs',[JobController::class,'store'])->middleware('auth');
 Route::get('/jobs/{job}',[JobController::class,'show'])->name('jobs.job-detail');
@@ -33,6 +33,10 @@ Route::post('/login',[SessionController::class,'store']);
 });
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/dashboard/update', [ProfileController::class, 'update'])->name('profile.update');
+});
 Route::delete('/logout',[SessionController::class,'destroy'])->middleware('auth');
 

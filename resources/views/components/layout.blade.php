@@ -16,10 +16,10 @@
                 </a>
             </div>
             <div class="ml-65 space-x-6 font-bold">
-                <a href="/">Home</a>
-                <a href="/search">Browse Jobs</a>
-                <a href="/aboutus">About Us</a>
-                <a href="/contact">Contact</a>
+                <a href="{{ route('home') }}">Home</a>
+                <a href="{{ route('search') }}">Browse Jobs</a>
+                <a href="{{ route('aboutus') }}">About Us</a>
+                <a href="{{ route('contact') }}">Contact</a>
             </div>
             @auth
                 
@@ -39,7 +39,7 @@
             
                     <!-- Dropdown menu (Hidden by default) -->
                     <div class="absolute hidden bg-black text-white border rounded shadow-lg" id="dropdownMenu">
-                        <a href="/profile/edit" class="block px-4 py-2">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="block px-4 py-2">Dashboard</a>
                         <a href="/profile/settings" class="block px-4 py-2">Edit Profile</a>
                         <a href="/profile/notifications" class="block px-4 py-2">Notifications</a>
                     </div>
