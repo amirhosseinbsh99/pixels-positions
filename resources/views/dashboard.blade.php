@@ -1,9 +1,9 @@
 <x-layout>
     <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 class="text-xl font-bold mb-6">Welcome to Your Dashboard, {{ auth()->user()->name }}</h2>
-        @if(auth()->user()->employer)
+        @if(auth()->user())
         
-        <img src="{{ asset(auth()->user()->employer->logo) }}" alt="Your Logo" class="rounded-xl w-32 h-32 object-cover mb-5">
+        <img src="{{ asset(auth()->user()->logo) }}" alt="Your Logo" class="rounded-xl w-32 h-32 object-cover mb-5">
         @else
             <img src="{{ asset('images/default-employer.png') }}" alt="Default Logo" class="rounded-xl w-32 h-32 object-cover opacity-50">
         @endif       
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <a href="/profile/edit" class="text-blue-400 hover:text-blue-300 font-semibold">Edit Profile</a>
+                    <a href="dashboard/edit" class="text-blue-400 hover:text-blue-300 font-semibold">Edit Profile</a>
                 </div>
             </div>
 

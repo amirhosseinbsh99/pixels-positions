@@ -1,6 +1,5 @@
 <x-layout>
 
-@section('content')
 <div class="bg-white/5 p-8 rounded-xl shadow-lg">
     <h2 class="text-2xl font-bold mb-6">Edit Profile</h2>
 
@@ -27,8 +26,8 @@
         </div>
 
         <div>
-            <label for="avatar" class="block text-sm font-semibold mb-2">Profile Picture</label>
-            <input type="file" name="avatar" id="avatar"
+            <label for="logo" class="block text-sm font-semibold mb-2">Profile Picture</label>
+            <input type="file" name="logo" id="logo"
                    class="w-full px-4 py-2 text-white bg-black border border-white/10 rounded-lg focus:outline-none">
         </div>
 
@@ -40,5 +39,4 @@
         </div>
     </form>
 </div>
-@endsection
 </x-layout>

@@ -20,8 +20,6 @@ Route::get('/jobs/{job}',[JobController::class,'show'])->name('jobs.job-detail')
 Route::get('/brows-jobs',[JobController::class,'brows']);
 // Route::get('/jobs/{job}',[JobController::class,'show']);
 
-
-
 Route::get('/search',[SearchController::class,'search'])->name('search');
 Route::get('/tags/{tag:name}',TagController::class);
 

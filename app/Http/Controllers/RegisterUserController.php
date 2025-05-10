@@ -47,6 +47,7 @@ class RegisterUserController extends Controller
             'logo' => $logoPath,
         ]);
 
+
         Auth::login($user);
 
         return redirect('/');
