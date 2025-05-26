@@ -16,9 +16,6 @@
                 </a>
                 
             </div>
-            
-            
-            
 
             @guest
             <div class="space-x-6 font-bold ">
@@ -40,7 +37,9 @@
         
         
             <div class="space-x-6 font-bold flex">
-                <a href="/jobs/create">Post a job</a>
+                @if(auth()->user()->user_type === 'employer')
+                    <a href="/jobs/create">Post a job</a>
+                @endif
                 
                 <!-- Dropdown for My Profile -->
                 
@@ -50,7 +49,7 @@
                         
                         <!-- Dropdown icon (Initially pointing right) -->
                         <div class="w-8 h-8 rounded-full overflow-hidden">
-                            <img src="{{ auth()->user()->logo ?? '/default-avatar.png' }}" alt="User Avatar" class="w-full h-full object-cover">
+                            <img src="{{ auth()->user()->logo ?? '/images/default-user.png' }}" alt="User Avatar" class="w-full h-full object-cover">
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 mr-2 w-4 h-4 transform transition-transform duration-200" id="dropdownIcon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             
@@ -66,7 +65,7 @@
                     <!-- Dropdown menu (Hidden by default) -->
                     <div class="absolute hidden bg-black text-white border rounded shadow-lg" id="dropdownMenu">
                         <a href="{{ route('dashboard') }}" class="block px-4 py-2">Dashboard</a>
-                        <a href="/profile/settings" class="block px-4 py-2">Edit Profile</a>
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2">Edit Profile</a>
                         <a href="/profile/notifications" class="block px-4 py-2">Notifications</a>
                         <form method="POST" action="/logout">
                             @csrf

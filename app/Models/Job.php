@@ -7,30 +7,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    /** @use HasFactory<\Database\Factories\JobFactory> */
     use HasFactory;
 
-    protected $fillable = ['title', 'company', 'location', 'category_id'];
+    protected $fillable = [
+        'title',
+        'company',    // if you still keep this field
+        'location',
+        'category_id',
+        'employer_id' // you need this to associate job with user(employer)
+    ];
+
     public function tag(string $name)
     {
-        // Ensure the tag exists or create it
         $tag = Tag::firstOrCreate(['name' => $name]);
 
-        // Attach the tag to the job if it is not already attached
         if (!$this->tags->contains($tag->id)) {
             $this->tags()->attach($tag);
         }
     }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }
 
-    public function employer(){
-        return $this->belongsTo(Employer::class);
+    // Change employer relation to point to User model where user_type = 'employer'
+    public function employer()
+    {
+        return $this->belongsTo(User::class, 'employer_id')
+                    ->where('user_type', 'employer');
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 }

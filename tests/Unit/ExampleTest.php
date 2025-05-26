@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Employer;
 use App\Models\Job;
 
 it('it belongs to an employer', function () {

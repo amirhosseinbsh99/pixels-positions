@@ -6,7 +6,12 @@
         <img src="{{ asset(auth()->user()->logo) }}" alt="Your Logo" class="rounded-xl w-32 h-32 object-cover mb-5">
         @else
             <img src="{{ asset('images/default-employer.png') }}" alt="Default Logo" class="rounded-xl w-32 h-32 object-cover opacity-50">
-        @endif       
+        @endif
+        <h3 class="text-xl font-bold mb-6 mt-1
+            {{ auth()->user()->user_type == 'employer' ? 'text-blue-500' : (auth()->user()->user_type == 'jobseeker' ? 'text-green-500' : '') }}">
+            {{ ucfirst(auth()->user()->user_type) }}
+        </h3>
+
         <h3 class="text-x font-bold mb-6 mt-1">{{auth()->user()->bio}}</h3> 
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,9 +54,6 @@
             <div class="bg-gray-700 p-4 rounded-lg shadow-md">
                 <h3 class="font-semibold text-lg text-gray-200">Recent Activity</h3>
                 <p class="mt-2 text-gray-400">Keep track of your recent actions on the platform.</p>
-
-               
-
                 <div class="mt-6">
                     <a href="/activities" class="text-blue-400 hover:text-blue-300 font-semibold">See All Activity</a>
                 </div>

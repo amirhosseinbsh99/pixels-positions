@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Employer;
 use App\Models\Category;
-
+use App\Models\User;  // Import User model instead of Employer
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,9 +19,12 @@ class JobFactory extends Factory
     public function definition(): array
     {
         return [
-            'employer_id' => Employer::factory(),  // Use the factory directly
+            // Create a user with user_type 'employer'
+            'employer_id' => User::factory()->state([
+                'user_type' => 'employer',
+            ]),
             'title' => fake()->jobTitle(),
-            'category_id' => Category::factory(), // Use the factory directly
+            'category_id' => Category::factory(),
             'salary' => fake()->numberBetween(50000, 150000),
             'location' => 'remote',
             'schedule' => 'Full Time',

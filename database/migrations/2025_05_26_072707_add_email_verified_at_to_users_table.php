@@ -9,20 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('logo')->nullable(); // You can adjust this type as needed
+            $table->timestamp('email_verified_at')->nullable()->after('email');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('logo');
+            $table->dropColumn('email_verified_at');
         });
     }
+
 };

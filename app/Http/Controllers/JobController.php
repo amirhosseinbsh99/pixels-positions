@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use App\Http\Requests\StoreJobRequest;
-use App\Http\Requests\UpdateJobRequest;
 use App\Models\Tag;
-use Arr;
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class JobController extends Controller
@@ -18,12 +16,12 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::latest()->with(['employer','tags'])->get()->groupBy('featured');
-        
-        return view('jobs.index',[
-            'featuredjobs' => $jobs[1],
-            'jobs'=> $jobs[0],
-            'tags'=> Tag::all()
+        $jobs = Job::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
+
+        return view('jobs.index', [
+            'featuredjobs' => $jobs[1] ?? collect(),
+            'jobs' => $jobs[0] ?? collect(),
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -44,66 +42,52 @@ class JobController extends Controller
             'title' => ['required'],
             'salary' => ['required'],
             'category_id' => ['required', 'exists:categories,id'],
-
             'location' => ['required'],
-            'schedule' => ['required',Rule::in(['Part Time','Full Time'])],
-            'url' => ['nullable','active_url'],
+            'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
+            'url' => ['nullable', 'active_url'],
             'tags' => ['nullable'],
         ]);
 
         $attributes['featured'] = $request->has('featured');
 
-        $job = \Illuminate\Support\Facades\Auth::user()->employer->jobs()->create(Arr::except($attributes,'tags'));
+        $user = Auth::user();
 
-        if ($attributes['tags'] ?? false){
-            foreach (explode(',',$attributes['tags']) as $tag){
-                $job->tag($tag);
+        // Check if user is employer before creating job
+        if ($user->user_type !== 'employer') {
+            abort(403, 'Only employers can create jobs.');
+        }
+
+        // Create the job linked to the employer user (employer_id points to users.id)
+        $job = $user->jobs()->create(Arr::except($attributes, 'tags'));
+
+        if (!empty($attributes['tags'])) {
+            foreach (explode(',', $attributes['tags']) as $tag) {
+                $job->tag(trim($tag));
             }
         }
+
         return redirect('/');
     }
 
     /**
      * Display the specified resource.
      */
-    public function brows(Job $job)
-    {   
-        $job = Job::paginate(20);
+    public function brows()
+    {
+        $jobs = Job::with(['category', 'employer', 'tags'])->latest()->paginate(20);
+
         return view('brows', [
-            'job' => $job, 
-            'jobs' => Job::with(['category', 'employer', 'tags'])->latest()->paginate(20), 
-            'tags' => Tag::all()
+            'jobs' => $jobs,
+            'tags' => Tag::all(),
         ]);
     }
+
     public function show(Job $job)
     {
-        // Return the view that shows the job details, passing the job as a variable
         return view('jobs.job-detail', [
-        'job' => $job,
-    ]);
+            'job' => $job,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Job $job)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateJobRequest $request, Job $job)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Job $job)
-    {
-        //
-    }
+    // You can implement edit, update, destroy methods as needed
 }
