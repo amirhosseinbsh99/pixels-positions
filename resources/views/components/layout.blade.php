@@ -37,10 +37,7 @@
         
         
             <div class="space-x-6 font-bold flex">
-                @if(auth()->user()->user_type === 'employer')
-                    <a href="/jobs/create">Post a job</a>
-                @endif
-                
+
                 <!-- Dropdown for My Profile -->
                 
                 <div class="relative">

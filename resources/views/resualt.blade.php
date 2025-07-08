@@ -12,10 +12,6 @@
                 Search
             </button>
         </form>
-        
-        
-                
-            
 
         <!-- Filtering Options -->
         <div class="w-auto flex justify-center space-x-3 mb-6 ">
@@ -71,10 +67,11 @@
                     <p class="text-gray-400">{{ $job->company }}</p>
                     <p class="text-sm text-gray-500">Created by: {{ $job->employer->name ?? 'Unknown' }}</p>
 
-                    @if(!empty($job->employer->logo) && file_exists(storage_path('app/public/' . $job->employer->logo)))
-                        <img src="{{ asset('storage/' . $job->employer->logo) }}" alt="Employer Image" class="mt-2 w-16 h-16 rounded-full">
+                    @if (!empty(optional($job->employer)->logo) && file_exists(storage_path('app/public/' . $job->employer->logo)))
+
+                        <img src="{{ asset('storage/' .$job->employer->logo)}}" alt="Employer Image" class="mt-2 w-16 h-16 rounded-full">
                     @else
-                        <img src="{{ asset('/images/default-employer.png') }}" alt="Default Employer Image" class="mt-2 w-16 h-16 rounded-full">
+                        <img src="{{ asset( url('/images/default-user.png')) }}" alt="Default Employer Image" class="mt-2 w-16 h-16 rounded-full">
                     @endif
 
                     <p class="text-sm text-yellow-500">Location: {{ $job->location }}</p>

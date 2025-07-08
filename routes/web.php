@@ -15,7 +15,7 @@ Route::get('/', [JobController::class, 'index'])->name('home');
 Route::resource('categories', CategoryController::class);
 Route::view('/aboutus', 'aboutus')->name('aboutus');
 Route::view('/contact', 'contact')->name('contact');
-Route::get('/jobs/create',[JobController::class,'create'])->middleware('auth');
+Route::get('/jobs/create',[JobController::class,'create'])->middleware('auth')->name('jobs.create');
 Route::middleware(['auth'])->group(function () {
     Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
     Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
@@ -31,7 +31,7 @@ Route::get('/tags/{tag:name}',TagController::class);
 Route::middleware('guest')->group(function(){
 Route::get('/register',[RegisterUserController::class,'create']);
 Route::post('/register',[RegisterUserController::class,'store']);
-Route::get('/login',[SessionController::class,'create']);
+Route::get('/login',[SessionController::class,'create'])->name('login');
 Route::post('/login',[SessionController::class,'store']);
 });
 Route::get('/dashboard', function () {

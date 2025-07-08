@@ -50,7 +50,7 @@
                 <p class="mt-2 text-gray-400">List of jobs you created</p>
 
                 <div class="mt-6">
-                    <a href="/applications" class="text-blue-400 hover:text-blue-300 font-semibold">View All Your Jobs</a>
+                    <a href="{{ route('jobs.myjobs') }}" class="text-blue-400 hover:text-blue-300 font-semibold">View All Your Jobs</a>
                 </div>
             </div>
             @elseif (auth()->user()->user_type == 'jobseeker')
@@ -60,7 +60,7 @@
                 <p class="mt-2 text-gray-400">Track the status of your job applications.</p>
 
                 <div class="mt-6">
-                    <a href="/applications" class="text-blue-400 hover:text-blue-300 font-semibold">View All Applications</a>
+                    <a href="{{ route('jobs.myjobs') }}" class="text-blue-400 hover:text-blue-300 font-semibold">View All Applications</a>
                 </div>
             </div>
             @endif
