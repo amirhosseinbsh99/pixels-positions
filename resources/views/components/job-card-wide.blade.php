@@ -12,7 +12,7 @@
         </a>
         <div>
             <h3 class="font-bold text-xl mt-3 group-hover:text-blue-800 transition-colors duration-300">
-                <a href="{{ $job->url }}" target="_blank">
+                <a href="{{ route('jobs.job-detail', $job->id) }}" target="_blank">
                     {{ $job->title }}
                 </a>
             </h3>

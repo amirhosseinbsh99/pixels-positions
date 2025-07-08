@@ -85,7 +85,9 @@
                     </p>
 
                     <a href="{{ route('jobs.job-detail', $job->id) }}" 
-                       class="block mt-3 text-blue-500 hover:underline">View Details</a>
+                    class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all duration-200 shadow-md">
+                        View Details
+                    </a>
                 </div>
             @endforeach
         </div>

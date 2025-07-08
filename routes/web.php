@@ -7,6 +7,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JobApplicationController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,14 @@ Route::resource('categories', CategoryController::class);
 Route::view('/aboutus', 'aboutus')->name('aboutus');
 Route::view('/contact', 'contact')->name('contact');
 Route::get('/jobs/create',[JobController::class,'create'])->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
+    Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
+});
 Route::post('/jobs',[JobController::class,'store'])->middleware('auth');
 Route::get('/jobs/{job}',[JobController::class,'show'])->name('jobs.job-detail');
-Route::get('/brows-jobs',[JobController::class,'brows']);
-// Route::get('/jobs/{job}',[JobController::class,'show']);
+Route::get('/brows-jobs',[JobController::class,'brows'])->name('jobs.browse');
+
 
 Route::get('/search',[SearchController::class,'search'])->name('search');
 Route::get('/tags/{tag:name}',TagController::class);
@@ -35,6 +40,13 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/dashboard/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/jobs/{job}', [JobController::class, 'destroy'])
+     ->name('jobs.destroy')
+     ->middleware('auth');
 });
+Route::get('/dashboard/jobs', [JobController::class, 'myJobs'])
+     ->middleware(['auth'])             
+     ->name('jobs.myjobs');
 Route::delete('/logout',[SessionController::class,'destroy'])->middleware('auth');
-
+Route::post('/jobs/{job}/apply', [JobApplicationController::class, 'store'])->middleware('auth');
+Route::get('/jobs/{job}/applicants', [JobApplicationController::class, 'applicants'])->middleware('auth');

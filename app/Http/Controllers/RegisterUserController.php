@@ -24,33 +24,32 @@ class RegisterUserController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
-    {
-        $userattributes = $request->validate([
-            'name' => ['required'],
-            'email' => ['required','email','unique:users,email'],
-            'password' => ['required','confirmed',Password::min(6)]
-        ]);
-        $employerattributes = $request->validate([
-            'employer' => ['required'],
-            'logo' => ['required',File::types(['png','jpg','webp'])]
-        ]);
-        $user = User::create($userattributes);
+{
+    $attributes = $request->validate([
+        'name' => ['required'],
+        'email' => ['required', 'email', 'unique:users,email'],
+        'password' => ['required', 'confirmed', Password::min(6)],
+        'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
+        'user_type' => ['required'], // assuming it's a string like "employer" or "job_seeker"
+        'bio' => ['nullable', 'string'],
+    ]);
 
-        $logoPath = $request->logo->store('logos');
+    // Store the logo
+    $logoPath = $request->file('logo')->store('logos');
+    $attributes['logo'] = $logoPath;
 
-        $user->employer()->create([
-            'name' => $employerattributes['employer'],
-            'logo' => $logoPath,
-        ]);
+    // Hash the password before saving
+    $attributes['password'] = bcrypt($attributes['password']);
 
+    // Create the user
+    $user = User::create($attributes);
 
-        Auth::login($user);
+    // Log the user in
+    Auth::login($user);
 
-        return redirect('/');
-    }
+    return redirect('/');
+}
 
 }

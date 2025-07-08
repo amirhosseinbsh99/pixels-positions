@@ -1,3 +1,14 @@
+@php
+    $user = auth()->user();
+@endphp
+
+@if ($user->user_type !== 'employer')
+    <x-layout>
+        <x-page-heading>Access Denied</x-page-heading>
+        <p class="text-red-500 text-center">Only employers can create jobs.</p>
+    </x-layout>
+    @php return; @endphp
+@endif
 <x-layout>
     <x-page-heading>New Job</x-page-heading>
 

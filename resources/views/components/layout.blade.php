@@ -49,7 +49,8 @@
                         
                         <!-- Dropdown icon (Initially pointing right) -->
                         <div class="w-8 h-8 rounded-full overflow-hidden">
-                            <img src="{{ auth()->user()->logo ?? '/images/default-user.png' }}" alt="User Avatar" class="w-full h-full object-cover">
+                            <img src="{{ auth()->user()->logo ? url(auth()->user()->logo) : asset('/images/default-user.png') }}" alt="User Avatar" class="w-full h-full object-cover">
+
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 mr-2 w-4 h-4 transform transition-transform duration-200" id="dropdownIcon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             

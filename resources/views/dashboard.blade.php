@@ -39,7 +39,21 @@
                     <a href="/jobs" class="text-blue-400 hover:text-blue-300 font-semibold">Browse All Jobs</a>
                 </div>
             </div>
+            
+            
+            @if (auth()->user()->user_type == 'employer')
+                
+            
+            <!-- Application Status Section -->
+            <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                <h3 class="font-semibold text-lg text-gray-200">Your Jobs</h3>
+                <p class="mt-2 text-gray-400">List of jobs you created</p>
 
+                <div class="mt-6">
+                    <a href="/applications" class="text-blue-400 hover:text-blue-300 font-semibold">View All Your Jobs</a>
+                </div>
+            </div>
+            @elseif (auth()->user()->user_type == 'jobseeker')
             <!-- Application Status Section -->
             <div class="bg-gray-700 p-4 rounded-lg shadow-md">
                 <h3 class="font-semibold text-lg text-gray-200">Your Applications</h3>
@@ -49,7 +63,7 @@
                     <a href="/applications" class="text-blue-400 hover:text-blue-300 font-semibold">View All Applications</a>
                 </div>
             </div>
-
+            @endif
             <!-- Recent Activity Section -->
             <div class="bg-gray-700 p-4 rounded-lg shadow-md">
                 <h3 class="font-semibold text-lg text-gray-200">Recent Activity</h3>
