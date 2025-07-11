@@ -60,18 +60,11 @@
                 <p class="mt-2 text-gray-400">Track the status of your job applications.</p>
 
                 <div class="mt-6">
-                    <a href="{{ route('jobs.myjobs') }}" class="text-blue-400 hover:text-blue-300 font-semibold">View All Applications</a>
+                    <a href="{{ route('job.myapplies') }}" class="text-blue-400 hover:text-blue-300 font-semibold">View All Applications</a>
                 </div>
             </div>
             @endif
-            <!-- Recent Activity Section -->
-            <div class="bg-gray-700 p-4 rounded-lg shadow-md">
-                <h3 class="font-semibold text-lg text-gray-200">Recent Activity</h3>
-                <p class="mt-2 text-gray-400">Keep track of your recent actions on the platform.</p>
-                <div class="mt-6">
-                    <a href="/activities" class="text-blue-400 hover:text-blue-300 font-semibold">See All Activity</a>
-                </div>
-            </div>
+            
         </div>
     </div>
 </x-layout>

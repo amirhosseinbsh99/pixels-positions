@@ -26,7 +26,7 @@
             </div>
             @endguest
             @auth
-            <div class="ml-40 space-x-6 font-bold ">
+            <div class="ml-19 space-x-6 font-bold ">
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('search') }}">Browse Jobs</a>
                 <a href="{{ route('aboutus') }}">About Us</a>
@@ -64,7 +64,6 @@
                     <div class="absolute hidden bg-black text-white border rounded shadow-lg" id="dropdownMenu">
                         <a href="{{ route('dashboard') }}" class="block px-4 py-2">Dashboard</a>
                         <a href="{{ route('profile.edit') }}" class="block px-4 py-2">Edit Profile</a>
-                        <a href="/profile/notifications" class="block px-4 py-2">Notifications</a>
                         <form method="POST" action="/logout">
                             @csrf
                             @method('DELETE')

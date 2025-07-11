@@ -36,16 +36,65 @@ class JobApplicationController extends Controller
     {
         $user = auth()->user();
 
-        // Only allow if current user owns the job
-        if ($user->user_type !== 'employer') {
-            return redirect('/')->with('error', 'You are not authorized to view applicants for this job.');
+        if ($user->user_type !== 'employer' || $job->employer_id !== $user->id) {
+            return redirect('/')->with('error', 'Not authorized.');
         }
 
-        // Load applications with user details
         $applications = $job->applications()->with('user')->latest()->get();
 
         return view('jobs.applicants', compact('job', 'applications'));
     }
+
+    public function myApplications()
+    {
+        $user = auth()->user();
+
+        if ($user->user_type !== 'jobseeker') {
+            return redirect('/')->with('error', 'Only job seekers can view their applications.');
+        }
+
+        // Get the jobs the user has applied to, with the application and job info
+        $applications = $user->jobApplications()->with('job')->latest()->get();
+
+        return view('jobs.my-applications', compact('applications'));
+    }
+    public function updateStatus(Request $request, \App\Models\JobApplication $application)
+    {
+        $user = auth()->user();
+
+        // Check employer ownership
+        if ($user->user_type !== 'employer' || $application->job->employer_id !== $user->id) {
+            return redirect('/')->with('error', 'Not authorized.');
+        }
+
+        $request->validate([
+            'status' => 'required|in:accepted,denied',
+        ]);
+
+        $application->status = $request->input('status');
+        $application->save();
+
+        return redirect()->back()->with('success', 'Application status updated successfully.');
+    }
+
+    public function cancel(\App\Models\JobApplication $application)
+    {
+        $user = auth()->user();
+
+        if ($application->user_id !== $user->id) {
+            return redirect()->back()->with('error', 'You are not authorized to cancel this application.');
+        }
+
+        // Optional: prevent canceling after accepted
+        if ($application->status === 'accepted') {
+            return redirect()->back()->with('error', 'You cannot cancel an accepted application.');
+        }
+
+        $application->delete();
+
+        return redirect()->back()->with('success', 'Application canceled successfully.');
+    }
+
 
 }
 

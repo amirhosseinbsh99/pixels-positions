@@ -18,7 +18,7 @@ Route::view('/contact', 'contact')->name('contact');
 Route::get('/jobs/create',[JobController::class,'create'])->middleware('auth')->name('jobs.create');
 Route::middleware(['auth'])->group(function () {
     Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
-    Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
+    Route::put('/jobs/{job}/update', [JobController::class, 'update'])->name('jobs.update');
 });
 Route::post('/jobs',[JobController::class,'store'])->middleware('auth');
 Route::get('/jobs/{job}',[JobController::class,'show'])->name('jobs.job-detail');
@@ -47,6 +47,11 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard/jobs', [JobController::class, 'myJobs'])
      ->middleware(['auth'])             
      ->name('jobs.myjobs');
+
+Route::get('dashboard/my-applications', [JobApplicationController::class, 'myApplications'])->name('job.myapplies');
+Route::patch('/applications/{application}/status', [JobApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
+Route::delete('/applications/{application}/cancel', [JobApplicationController::class, 'cancel'])->name('applications.cancel');
+
 Route::delete('/logout',[SessionController::class,'destroy'])->middleware('auth');
 Route::post('/jobs/{job}/apply', [JobApplicationController::class, 'store'])->middleware('auth');
-Route::get('/jobs/{job}/applicants', [JobApplicationController::class, 'applicants'])->middleware('auth');
+Route::get('/jobs/{job}/applicants', [JobApplicationController::class, 'applicants'])->middleware('auth')->name('job.myjob.applicants');

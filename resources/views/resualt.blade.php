@@ -16,18 +16,34 @@
         <!-- Filtering Options -->
         <div class="w-auto flex justify-center space-x-3 mb-6 ">
             
+                       
+            <!-- Improved Buttons -->
+            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded border border-white/20 bg-white/10 text-white hover:bg-blue-600 hover:text-white transition">
+                All
+            </button>
+
+            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded border border-white/20 bg-white/10 text-green-400 hover:bg-green-600 hover:text-white transition"
+                    onclick="updateFilter('location', 'Remote')">
+                Remote
+            </button>
+
+            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded border border-white/20 bg-white/10 text-yellow-400 hover:bg-yellow-600 hover:text-black transition"
+                    onclick="updateFilter('schedule', 'Full Time')">
+                Full Time
+            </button>
+
+            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded border border-white/20 bg-white/10 text-red-400 hover:bg-red-600 hover:text-white transition"
+                    onclick="updateFilter('schedule', 'Part Time')">
+                Part Time
+            </button>
+
             <select id="location-filter" class="bg-black text-green-500 border mt p-2 rounded shadow" onchange="updateLocation()">
                 <option value="">Filter by Location</option>
                 <option value="Iran" id="iran-option">Iran</option>
                 <option value="Remote" id="remote-option">Remote</option>
-            </select>            
-            <!-- Schedule Filters -->
-            <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition" onclick="clearFilters()">All</button>
-            <button class="filter-btn bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition" onclick="updateFilter('location', 'Remote')">Remote</button>
-            <button class="filter-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition" onclick="updateFilter('schedule', 'Full Time')">Full Time</button>
-            <button class="filter-btn bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition" onclick="updateFilter('schedule', 'Part Time')">Part Time</button>
+            </select> 
 
-            <!-- Salary Range Filter -->
+
             <!-- Salary Range Filter -->
             <select id="salary-filter" class="bg-black text-green-500 border p-2 rounded shadow" onchange="updateFilter('salary', this.value)">
                 <option value="">Filter by Salary</option>

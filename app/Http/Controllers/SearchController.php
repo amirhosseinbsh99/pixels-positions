@@ -10,7 +10,7 @@ class SearchController extends Controller
 {
     public function search()
     {
-        $query = Job::with(['category', 'employer', 'tags']);
+        $query = Job::with(['category', 'employer', 'tags'])->whereHas('employer');
 
         // Search by title
         if (request()->has('q') && request('q') !== '') {
@@ -76,7 +76,11 @@ class SearchController extends Controller
                 break;
         }
     }
-
+    // Add this block to exclude the logged-in job seeker's own jobs:
+    if (auth()->check() && auth()->user()->user_type === 'job_seeker') {
+        $userId = auth()->id();
+        $query->where('employer_id', '!=', $userId);  // Adjust if your column name is different
+    }
 
         // Paginate the results
         $jobs = $query->latest()->paginate(20);
