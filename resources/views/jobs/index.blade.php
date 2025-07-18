@@ -18,17 +18,7 @@
             </div>
         </section>
     
-        <section>
-            <x-section-heading>tags</x-section-heading>
-            <div class="mt-6 space-x-1 ">
-                @foreach ($tags as $tag)
-                    <x-tag :$tag/>
-                    
-                @endforeach
-                
-
-            </div>
-        </section>
+        
         <section>
             <x-section-heading>Recent jobs</x-section-heading>
             <div class="mt-6 space-x-6 ">

@@ -8,7 +8,6 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobApplicationController;
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [JobController::class, 'index'])->name('home');

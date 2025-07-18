@@ -1,3 +1,33 @@
+<style>
+    .ts-control input {
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    background: transparent;
+    min-width: 100%;
+    }
+    .tom-select .ts-dropdown .option {
+        pointer-events: none; /* disable mouse interactions */
+    }
+    kbd {
+    background-color: #44475a;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+}
+
+select[multiple] {
+    min-height: 4.5rem;
+}
+
+/* Optional: soften the border and add subtle shadow for better input feel */
+select {
+    box-shadow: 0 0 8px rgb(128 90 213 / 0.15);
+}
+</style>
 <x-layout>
     <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-lg p-10 rounded-3xl shadow-2xl max-w-3xl mx-auto mt-10 border border-white/10">
         <h2 class="text-3xl font-extrabold text-white mb-8">Edit Profile</h2>
@@ -91,6 +121,47 @@
                 </select>
             </div>
 
+            <!-- Category -->
+            <div>
+                <label for="category_id" class="block text-sm font-medium text-white mb-1">Category</label>
+                <select name="category_id" id="category_id"
+                        class="w-full px-4 py-3 rounded-xl bg-black/70 border border-white/10 text-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition">
+                    <option value="">-- Select a category --</option>
+                    @foreach(\App\Models\Category::all() as $category)
+                        <option value="{{ $category->id }}"
+                            {{ old('category_id', auth()->user()->category_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+        <!-- Tags (inside form, before submit button) -->
+        @php
+            $userTagNames = auth()->user()->tags->pluck('name')->toArray();
+        @endphp
+
+    <!-- Skills -->
+    <div>
+        <label for="tags" class="block text-sm font-medium text-white mb-1 relative cursor-help" 
+            title="Hold Ctrl (Cmd on Mac) to select multiple skills or use the search to add/remove tags">
+            Skills
+            <span class="ml-1 text-xs text-white/50">🛈</span>
+        </label>
+        <p class="text-xs text-white/70 mb-2 italic select-none">
+            Tip: Hold <kbd class="px-1 py-0.5 bg-gray-700 rounded text-white text-xs">Ctrl</kbd> (or 
+            <kbd class="px-1 py-0.5 bg-gray-700 rounded text-white text-xs">Cmd</kbd> on Mac) to select multiple skills.
+        </p>
+        <select id="tags" name="tags[]" multiple
+                class="w-full px-4 py-3 rounded-xl bg-black/70 border border-white/20 text-white
+                    focus:ring-2 focus:ring-purple-500 focus:outline-none transition shadow-sm">
+            @foreach($userTagNames as $tag)
+                <option value="{{ $tag }}" selected>{{ $tag }}</option>
+            @endforeach
+        </select>
+    </div>
+
+
             <!-- Submit Button -->
             <div class="flex justify-end pt-4">
                 <button type="submit"
@@ -98,6 +169,31 @@
                     Save Changes
                 </button>
             </div>
+            
         </form>
+        
+
+
+
     </div>
+<script>
+    const allTags = @json(\App\Models\Tag::pluck('name'));
+
+    new TomSelect('#tags', {
+        create: false,
+        maxItems: 10,
+        persist: false,
+        plugins: ['remove_button'],
+        placeholder: 'Type to search skills...',
+        load: function(query, callback) {
+            if (!query.length) return callback(); // Don't load anything until user types
+            const filtered = allTags
+                .filter(tag => tag.toLowerCase().includes(query.toLowerCase()))
+                .map(name => ({ value: name, text: name }));
+            callback(filtered);
+        }
+    });
+
+
+</script>
 </x-layout>

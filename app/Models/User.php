@@ -59,5 +59,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\JobApplication::class, 'user_id');
     }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }
 

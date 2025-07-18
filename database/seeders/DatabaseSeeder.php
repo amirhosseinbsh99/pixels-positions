@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             JobSeeder::class,
             CategorySeeder::class,
+            UserTagSeeder::class
         ]);
     }
 }

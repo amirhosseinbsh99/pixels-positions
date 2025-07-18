@@ -32,11 +32,24 @@
             </div>
 
             <!-- Job Recommendations Section -->
+            @php
+                $userTags = auth()->user()->tags->pluck('name')->toArray();
+            @endphp
+
             <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                
                 <h3 class="font-semibold text-lg text-gray-200">Job Recommendations</h3>
                 <p class="mt-2 text-gray-400">Based on your skills and preferences.</p>
                 <div class="mt-6">
-                    <a href="/jobs" class="text-blue-400 hover:text-blue-300 font-semibold">Browse All Jobs</a>
+                    @if(auth()->user()->category_id)
+                        <a href="{{ route('search', ['category_id' => auth()->user()->category_id]) }}"
+                        class="text-blue-400 hover:text-blue-300 font-semibold">
+                        Browse Recommended Jobs
+                        </a>
+                    @else
+                        <p class="text-red-400 mt-2">You need to select a category in your profile to see recommended jobs.</p>
+                    @endif
+
                 </div>
             </div>
             
