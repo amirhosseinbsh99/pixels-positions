@@ -1,4 +1,51 @@
+
+# 🎯 Pixel Positions
+
+**Pixel Positions** is a modern job-finding website built with Laravel. It helps job seekers find relevant opportunities and companies to post job listings. The project is built with simplicity and performance in mind, using SQLite as the database.
+
+## 🌟 Features
+
+- ✅ Browse job listings
+- ✅ Register and log in as a job seeker or employer
+- ✅ Post and manage job listings
+- ✅ Upload profile pictures
+
+## 🖼️ Screenshot
+
 ![Website Screenshot](assets/screenshot.png)
+
+## 🧰 Tech Stack
+
+- **Framework:** Laravel 10
+- **Database:** SQLite
+- **Templating Engine:** Blade
+- **Styling:** Tailwind CSS
+- **Authentication:** Laravel Breeze
+
+## 🚀 Getting Started
+
+### 1. Clone the project
+
+```bash
+git clone https://github.com/yourusername/pixel-positions.git
+cd pixel-positions
+composer install
+npm install && npm run dev
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+
+
+✍️ Author: Amirhossein
+
+
+
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
