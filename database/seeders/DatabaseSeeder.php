@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456'),
             'email_verified_at' => Carbon::now(),
             'user_type' => 'employer',
-            'logo' => 'images/default-employer.png',  // store relative path or wherever you keep logos
+            'logo' => 'images/default-user.png',  // store relative path or wherever you keep logos
         ]);
 
         // Create a category for the job
