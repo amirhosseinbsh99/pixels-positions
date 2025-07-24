@@ -5,7 +5,7 @@
         
         <img src="{{ asset(auth()->user()->logo) }}" alt="Your Logo" class="rounded-xl w-32 h-32 object-cover mb-5">
         @else
-            <img src="{{ asset('images/default-employer.png') }}" alt="Default Logo" class="rounded-xl w-32 h-32 object-cover opacity-50">
+            <img src="{{ asset('images/default-user.png') }}" alt="Default Logo" class="rounded-xl w-32 h-32 object-cover opacity-50">
         @endif
         <h3 class="text-xl font-bold mb-6 mt-1
             {{ auth()->user()->user_type == 'employer' ? 'text-blue-500' : (auth()->user()->user_type == 'jobseeker' ? 'text-green-500' : '') }}">
